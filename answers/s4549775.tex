@@ -132,8 +132,22 @@ ns1.science.ru.nl.	86400	IN	A	131.174.224.4
 ;; WHEN: Wed Feb 22 14:21:36 CET 2017
 ;; MSG SIZE  rcvd: 113
 	\end{lstlisting}
+	\label{sec:1a}
 
 	\item %b
+	Apart from some crazy lines in the output which neither I nor the student assistant could explain the "+trace" option basically does the same as we manually did in (\ref{sec:1a}). It begins at the root servers and traverses down the hierarchy to eventually find the server we requested.
+
+	Most lines looked like this
+	\begin{lstlisting}
+nl.			172800	IN	NS	nl1.dnsnode.net.
+	\end{lstlisting}
+	which makes sense but some of them looked like
+	\begin{lstlisting}
+nl.			86400	IN	RRSIG	DS 8 1 86400 20170307050000 20170222040000 61045 . D4665w6HgEmCnNP/EZdmjQ9bJrMOwqnAQ0gSzVuttj/0bza1SYDuSVUj Nj+ngjkFNf6LKGR40wDZBtDF1m1GHnwaJL1aNcL/twxFqGhOhQLXbroc D0toEvuqwk6r/lYuwDrSm+oXj+dFaRaHRR10csJWYajUWobqsRG6vO0b jLyTeroJuHhiewYjOaVxnkZz38LvdiFTQ8ieEWKtfoJTIVaiAcxviEjp +n/gACvXh2Vxp6BOSIPXMXxt2CKC+i8y1REfF3NekkInI4/cu+k62P3P 8NE1VpwYaP80+dB/pUD4WmqatFurytGfaXz3wiFt2SFLdK5IHbNkm3x8 NcFi1A==
+	\end{lstlisting}
+	which I do not understand.
+
+	I compared my output to that of a friend and I got all lines he got plus this garbage lines. So at least I am not missing anything.
 \end{enumerate}
 
 \section{} %2
