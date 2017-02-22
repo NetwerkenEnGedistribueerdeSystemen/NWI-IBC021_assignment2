@@ -2,6 +2,10 @@
 
 \usepackage[top=5em, bottom=5em, left=5em, right=5em]{geometry}
 \usepackage{enumerate}
+\usepackage{listings}
+\lstset{
+	breaklines=true
+}
 
 \setlength\parskip{1em}
 \setlength\parindent{0em}
@@ -16,6 +20,119 @@
 \section{} %1
 \begin{enumerate}[a]
 	\item %a
+	I ran "dig @b.root-servers.net cs.ru.nl" and got
+
+	\begin{lstlisting}
+; <<>> DiG 9.10.3-P4-Ubuntu <<>> @b.root-servers.net cs.ru.nl
+; (2 servers found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 56662
+;; flags: qr rd; QUERY: 1, ANSWER: 0, AUTHORITY: 8, ADDITIONAL: 17
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;cs.ru.nl.			IN	A
+
+;; AUTHORITY SECTION:
+nl.			172800	IN	NS	ns1.dns.nl.
+nl.			172800	IN	NS	ns4.dns.nl.
+nl.			172800	IN	NS	ns2.dns.nl.
+nl.			172800	IN	NS	ns-nl.nic.fr.
+nl.			172800	IN	NS	ns5.dns.nl.
+nl.			172800	IN	NS	sns-pb.isc.org.
+nl.			172800	IN	NS	nl1.dnsnode.net.
+nl.			172800	IN	NS	ns3.dns.nl.
+
+;; ADDITIONAL SECTION:
+nl1.dnsnode.net.	172800	IN	A	194.146.106.42
+ns1.dns.nl.		172800	IN	A	193.176.144.5
+ns2.dns.nl.		172800	IN	A	213.154.241.85
+ns3.dns.nl.		172800	IN	A	194.171.17.10
+ns4.dns.nl.		172800	IN	A	95.142.99.212
+ns5.dns.nl.		172800	IN	A	194.0.28.53
+ns-nl.nic.fr.		172800	IN	A	192.93.0.4
+sns-pb.isc.org.		172800	IN	A	192.5.4.1
+nl1.dnsnode.net.	172800	IN	AAAA	2001:67c:1010:10::53
+ns1.dns.nl.		172800	IN	AAAA	2a00:d78:0:102:193:176:144:5
+ns2.dns.nl.		172800	IN	AAAA	2001:7b8:606::85
+ns3.dns.nl.		172800	IN	AAAA	2001:610:0:800d::10
+ns4.dns.nl.		172800	IN	AAAA	2a00:1188:5::212
+ns5.dns.nl.		172800	IN	AAAA	2001:678:2c:0:194:0:28:53
+ns-nl.nic.fr.		172800	IN	AAAA	2001:660:3005:1::1:2
+sns-pb.isc.org.		172800	IN	AAAA	2001:500:2e::1
+
+;; Query time: 170 msec
+;; SERVER: 192.228.79.201#53(192.228.79.201)
+;; WHEN: Wed Feb 22 14:16:05 CET 2017
+;; MSG SIZE  rcvd: 566
+	\end{lstlisting}
+
+	Then I ran "dig @ns1.dns.nl cs.ru.nl" and got
+
+	\begin{lstlisting}
+; <<>> DiG 9.10.3-P4-Ubuntu <<>> @ns1.dns.nl cs.ru.nl
+; (2 servers found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 28278
+;; flags: qr rd; QUERY: 1, ANSWER: 0, AUTHORITY: 3, ADDITIONAL: 5
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;cs.ru.nl.			IN	A
+
+;; AUTHORITY SECTION:
+ru.nl.			3600	IN	NS	ns1.surfnet.nl.
+ru.nl.			3600	IN	NS	ns4.ru.nl.
+ru.nl.			3600	IN	NS	ns3.ru.nl.
+
+;; ADDITIONAL SECTION:
+ns1.surfnet.nl.		3600	IN	A	192.87.106.101
+ns3.ru.nl.		3600	IN	A	131.174.78.16
+ns4.ru.nl.		3600	IN	A	131.174.78.17
+ns1.surfnet.nl.		3600	IN	AAAA	2001:610:1:800a:192:87:106:101
+
+;; Query time: 9 msec
+;; SERVER: 193.176.144.5#53(193.176.144.5)
+;; WHEN: Wed Feb 22 14:20:35 CET 2017
+;; MSG SIZE  rcvd: 175
+	\end{lstlisting}
+
+	which lead me to the final round "dig @ns1.surfnet.nl cs.ru.nl" that produced this
+
+	\begin{lstlisting}
+; <<>> DiG 9.10.3-P4-Ubuntu <<>> @ns1.surfnet.nl cs.ru.nl
+; (2 servers found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 32166
+;; flags: qr rd; QUERY: 1, ANSWER: 0, AUTHORITY: 2, ADDITIONAL: 3
+;; WARNING: recursion requested but not available
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 4096
+;; QUESTION SECTION:
+;cs.ru.nl.			IN	A
+
+;; AUTHORITY SECTION:
+cs.ru.nl.		86400	IN	NS	ns1.science.ru.nl.
+cs.ru.nl.		86400	IN	NS	ns2.science.ru.nl.
+
+;; ADDITIONAL SECTION:
+ns2.science.ru.nl.	86400	IN	A	131.174.16.133
+ns1.science.ru.nl.	86400	IN	A	131.174.224.4
+
+;; Query time: 33 msec
+;; SERVER: 192.87.106.101#53(192.87.106.101)
+;; WHEN: Wed Feb 22 14:21:36 CET 2017
+;; MSG SIZE  rcvd: 113
+	\end{lstlisting}
+
 	\item %b
 \end{enumerate}
 
