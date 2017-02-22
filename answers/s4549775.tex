@@ -153,6 +153,16 @@ nl.			86400	IN	RRSIG	DS 8 1 86400 20170307050000 20170222040000 61045 . D4665w6H
 \end{enumerate}
 
 \section{} %2
+The red section contains the query which asks for cs.ru.nl. The blue section contains the answer.
+
+RFC 1035 specifies an encryption scheme where there can be back references to earlier parts of the message. These back references span 2 bytes and start with "11" followed by a 14 bit offset from the beginning of the message starting at 0.
+
+Excerpt from the RFC:
+"In order to reduce the size of messages, the domain system utilizes a
+compression scheme which eliminates the repetition of domain names in a
+message.  In this scheme, an entire domain name or a list of labels at
+the end of a domain name is replaced with a pointer to a prior occurance
+of the same name."
 
 \section{} %3
 \begin{enumerate}[a]
