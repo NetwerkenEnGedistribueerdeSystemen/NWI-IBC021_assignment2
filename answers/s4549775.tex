@@ -195,6 +195,8 @@ The request just asks for "cs.ru.nl". The answer contains the following domains 
 	Another factor might be higher TTLs for higher level DNS host entries. The ip of the ".nl" server probably does not change often so the TTL can be higher.
 
 	\item %c
+	If some host shows up in the DNS cache you know that it must have been requested at most TTL seconds ago. This does not actually tell you whether the site has been visited but it can be used as a pretty good indicator because you mostly do DNS requests for hosts you plan t access.
+
 	\item %d
 	As mentioned in (b) the hosts whose DNS entries have higher TTLs are more likely to be in cache. This is because once they end up in cache they stay there for longer which means they are at any point more likely to be in cache compared to low TTL hosts DNS entries.
 
