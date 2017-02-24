@@ -188,6 +188,12 @@ The request just asks for "cs.ru.nl". The answer contains the following domains 
 	\end{enumerate}
 
 	\item %b
+	The more general the host name is the most likely it will be in the cache. ".nl" is very likely to be cached. "cs.nl" is less likely to be in cache and so on.
+
+	This is because to look up "x.nl" you need to look up ".nl", to look up "y.x.nl" you need to look up "x.nl" so the more top level hosts are more likely to be looked up.
+
+	Another factor might be higher TTLs for higher level DNS host entries. The ip of the ".nl" server probably does not change often so the TTL can be higher.
+
 	\item %c
 	\item %d
 	\item %e
