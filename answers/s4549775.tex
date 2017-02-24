@@ -164,6 +164,18 @@ message.  In this scheme, an entire domain name or a list of labels at
 the end of a domain name is replaced with a pointer to a prior occurance
 of the same name."
 
+The request just asks for "cs.ru.nl". The answer contains the following domains in order:
+\begin{itemize}
+	\item cs.ru.nl
+	\item back reference to cs.ru.nl = cs.ru.nl
+	\item mx1.science + backreference to .ru.nl = mx1.science.ru.nl
+	\item mx2. + backreference to .science + backreference to .ru.nl = mx2.science.ru.nl
+	\item mx3. + backreference to .science + backreference to .ru.nl = mx3.science.ru.nl
+	\item ns1. + backreference to .science + backreference to .ru.nl = ns1.science.ru.nl
+	\item ns2. + backreference to .science + backreference to .ru.nl = ns2.science.ru.nl
+	\item ns3. + backreference to .science + backreference to .ru.nl = ns3.science.ru.nl
+\end{itemize}
+
 \section{} %3
 \begin{enumerate}[a]
 	\item %a
