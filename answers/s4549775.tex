@@ -203,6 +203,8 @@ The request just asks for "cs.ru.nl". The answer contains the following domains 
 
 	\item %e
 	\item %f
+	Email is handled by the IMAP protocol. The "imap" DNS entry points to the "alpha" entry which has IP 130.122.131.10. This server will handle email sent to the "random domain".
+
 	\item %g
 	A CNAME record points to another name, in this case "alpha". It is better to use a CNAME record here because we only need to update one record (the one for "alpha") when the IP of the server changes. The CNAME records will still point to "alpha" and do not need to be changed.
 \end{enumerate}
