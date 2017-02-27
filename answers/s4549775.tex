@@ -2,6 +2,7 @@
 
 \usepackage[top=5em, bottom=5em, left=5em, right=5em]{geometry}
 \usepackage{enumerate}
+\usepackage{graphicx}
 \usepackage{listings}
 \lstset{
 	breaklines=true
@@ -209,5 +210,39 @@ The request just asks for "cs.ru.nl". The answer contains the following domains 
 \section{} %4
 
 \section{} %5
+
+I executed the following steps:
+
+\begin{lstlisting}
+vstart A --eth0=a
+vstart B --ath0=b
+vstart AB --eth0=a --eth1=b
+\end{lstlisting}
+
+For VM $A$:
+\begin{lstlisting}
+ifconfig eth0 10.0.0.1 up
+\end{lstlisting}
+
+For VM $B$:
+\begin{lstlisting}
+ifconfig eth0 10.0.0.2 up
+\end{lstlisting}
+
+For VM $AB$:
+\begin{lstlisting}
+ifconfig eth0 10.0.0.3 up
+ifconfig eth1 10.0.0.4 up
+\end{lstlisting}
+
+After that I used $vlist$ to get an overview which produced this output:
+
+\includegraphics[width=\linewidth]{screenshots/vlist}
+
+The ifconfig output for all VMs is shown here:
+
+\includegraphics[width=\linewidth]{screenshots/ifconfig}
+
+After this I could ping AB from A and A from AB but B and AB could ping each other. I have no idea at all why this does not work and I even wrote an email to Jon Moroney who wasn't able to help me.
 
 \end{document}
