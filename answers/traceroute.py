@@ -117,6 +117,15 @@ if __name__ == "__main__":
         exit(0)
     hostname = sys.argv[1]
     for ttl in range(1, MAX_HOPS + 1):
+        print(ttl, end=" ")
         for i in range(MAX_EXP):
-            start = time.time()
-            # Write your code here
+            start = time.perf_counter()
+            answer = send_echo_request_with_ttl(hostname, ttl)
+            rtt = time.perf_counter() - start
+            if answer is not None:
+                ip = answer[0][0]
+                print("{} ({})".format(getfqdn(ip), ip), end=" ")
+                print("{0:.2f} ms".format(rtt * 100), end=" ")
+            else:
+                print("*", end=" ")
+        print()
