@@ -115,7 +115,7 @@ if __name__ == "__main__":
         print("USAGE: \npython traceroute.py hostname|ip_address")
         exit(0)
     hostname = sys.argv[1]
-    for ttl in range(MAX_HOPS):
+    for ttl in range(1, MAX_HOPS + 1):
         for i in range(MAX_EXP):
             start = time.time()
             # Write your code here
