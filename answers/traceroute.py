@@ -86,6 +86,7 @@ def send_packet_with_ttl(hostname, pkt, ttl):
         recvPacket, addr = mySocket.recvfrom(1024)
     except timeout:
         recvPacket = None
+        addr = None
     finally:
         return (addr, recvPacket)
 
