@@ -212,6 +212,13 @@ The request just asks for "cs.ru.nl". The answer contains the following domains 
 \end{enumerate}
 
 \section{} %4
+With the routines provided in the template implementing traceroute was very easy. You just loop through the TTLs (1..MAX\_HOPS which I had to change because in the provided framework it covers 0..MAX\_HOPS - 1), start a timer ($time.time()$ does not necessarily provide precision $<1$ second so I used $time.perf\_counter()$), build a request with the hostname and current TTL, then send it and stop the timer if the request times out or we receive a response.
+
+Then if you get a response you look up the FQDN of the response's IP and display the FQDN, IP, and RTT. If you do not get a response you just print "*". You repeat that 3 times per TTL.
+
+However the provided $send\_packet\_with\_ttl$ function has a bug. If the request times out it references an undeclared variable. This was easy to fix but I thought we could assume that the code we got from you was correct.
+
+The code is provided as "traceroute.py".
 
 \section{} %5
 
